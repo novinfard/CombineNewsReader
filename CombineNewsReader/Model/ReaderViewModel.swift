@@ -1,9 +1,11 @@
 import Foundation
 import Combine
+import SwiftUI
 
-class ReaderViewModel {
+class ReaderViewModel: ObservableObject {
     private let api = API()
-    private var allStories = [Story]()
+    @Published private var allStories = [Story]()
+    @Published var error: API.Error? = nil
     private var subscriptions = Set<AnyCancellable>()
     
     var filter = [String]()
@@ -34,6 +36,5 @@ class ReaderViewModel {
             }
     }
     
-    var error: API.Error? = nil
 }
 
