@@ -5,6 +5,7 @@ struct ReaderView: View {
     @ObservedObject var model: ReaderViewModel
     @State var presentingSettingsSheet = false
     @State var currentDate = Date()
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
 
     private let timer = Timer.publish(every: 10, on: .main, in: .common)
         .autoconnect()
@@ -34,7 +35,7 @@ struct ReaderView: View {
                                 print(story)
                             }
                             .font(.subheadline)
-                            .foregroundColor(Color.blue)
+                            .foregroundColor(self.colorScheme == .light ? .blue : .orange)
                             .padding(.top, 6)
                         }
                         .padding()

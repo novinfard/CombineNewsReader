@@ -9,6 +9,7 @@ class ReaderViewModel: ObservableObject {
 
     private let api = API()
     private var subscriptions = Set<AnyCancellable>()
+    
 
     func fetchStories() {
         api
