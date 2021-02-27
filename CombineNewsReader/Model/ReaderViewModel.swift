@@ -3,13 +3,13 @@ import Combine
 import SwiftUI
 
 class ReaderViewModel: ObservableObject {
-    private let api = API()
     @Published private var allStories = [Story]()
     @Published var error: API.Error? = nil
+    @Published  var filter = [String]()
+
+    private let api = API()
     private var subscriptions = Set<AnyCancellable>()
-    
-    var filter = [String]()
-    
+
     func fetchStories() {
         api
             .stories()

@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct FilterKeyword: Identifiable, Codable {
     var id: String { value }

@@ -1,7 +1,8 @@
 import Foundation
+import Combine
 
-final class Settings {
+final class Settings: ObservableObject {
     init() { }
     
-    var keywords = [FilterKeyword]()
+    @Published var keywords = [FilterKeyword]()
 }
