@@ -6,6 +6,7 @@ struct ReaderView: View {
     @State var presentingSettingsSheet = false
     @State var currentDate = Date()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @EnvironmentObject var settings: Settings
 
     private let timer = Timer.publish(every: 10, on: .main, in: .common)
         .autoconnect()
@@ -48,6 +49,7 @@ struct ReaderView: View {
             .listStyle(PlainListStyle())
             .sheet(isPresented: self.$presentingSettingsSheet, content: {
                 SettingsView()
+                    .environmentObject(self.settings)
             })
             .alert(item: self.$model.error) { error in
                 Alert(

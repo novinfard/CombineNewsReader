@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let viewModel = ReaderViewModel()
         
         let rootView = ReaderView(model: viewModel)
+            .environmentObject(userSettings)
         
         if let windowScene = scene as? UIWindowScene {
             viewModel.fetchStories()
