@@ -41,6 +41,13 @@ struct ReaderView: View {
             .sheet(isPresented: self.$presentingSettingsSheet, content: {
                 SettingsView()
             })
+            .alert(item: self.$model.error) { error in
+                Alert(
+                    title: Text("Network error"),
+                    message: Text(error.localizedDescription),
+                    dismissButton: .cancel()
+                )
+            }
             .navigationBarTitle(Text("\(self.model.stories.count) Stories"))
             .navigationBarItems(trailing:
                                     Button("Settings") {
