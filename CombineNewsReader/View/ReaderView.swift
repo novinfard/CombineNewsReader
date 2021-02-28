@@ -7,6 +7,7 @@ struct ReaderView: View {
     @State var currentDate = Date()
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @EnvironmentObject var settings: Settings
+    @State var filterTitle: String = "Showing all stories"
 
     private let timer = Timer.publish(every: 10, on: .main, in: .common)
         .autoconnect()
@@ -17,11 +18,9 @@ struct ReaderView: View {
     }
     
     var body: some View {
-        let filter = "Showing all stories"
-        
         return NavigationView {
             List {
-                Section(header: Text(filter).padding(.leading, -10)) {
+                Section(header: Text($filterTitle.wrappedValue).padding(.leading, -10)) {
                     ForEach(self.model.stories) { story in
                         VStack(alignment: .leading, spacing: 10) {
                             TimeBadge(time: story.time)
@@ -45,6 +44,17 @@ struct ReaderView: View {
                         self.currentDate = $0
                     }
                 }.padding()
+                .onReceive(settings
+                            .$keywords) { keywords in
+                    guard !keywords.isEmpty else {
+                        filterTitle = "Showing all stories"
+                        return
+                    }
+                    let combined = keywords
+                        .map{ $0.value }
+                        .joined(separator: ", ")
+                    filterTitle = "Filter: \(combined)"
+                }
             }
             .listStyle(PlainListStyle())
             .sheet(isPresented: self.$presentingSettingsSheet, content: {
